@@ -25,10 +25,10 @@ def pad(x, max_len=64600):
 
 
 # 评估单个音频文件
-def evaluate_audio(model, audio):
+def evaluate_audio(model, audio,device):
     X_pad = pad(audio, 64600)
     # input_tensor = torch.tensor(audio, dtype=torch.float32).unsqueeze(0)  # 转为张量，并添加 batch 维度
-    x_inp = Tensor(X_pad).unsqueeze(0)
+    x_inp = Tensor(X_pad).unsqueeze(0).to(device)
     with torch.no_grad():
         output = model(x_inp)  # 调用模型进行推理
 
@@ -54,11 +54,11 @@ def process_audio_with_soundfile(file_path):
     return audio, sr
 
 # 评估文件
-def evaluate_audio_file(file_path: Path, model, save_path: str):
+def evaluate_audio_file(file_path: Path, model, device):
     audio, sr = process_audio_with_soundfile(file_path)
     results=[]
     for i in range(1,10):
-        result = evaluate_audio(model, audio)
+        result = evaluate_audio(model, audio,device)
         results.append(result)
     
     print(f"Evaluating {file_path.name}...")
@@ -81,11 +81,8 @@ def test(model_config: dict, audio_file_path: str):
         print(f"Audio file {audio_file_path} not found!")
         return
 
-    # 保存评估结果的文件路径
-    save_path = "evaluation_result.txt"
-
     # 进行评估并保存结果
-    evaluate_audio_file(audio_file_path, model, save_path)
+    evaluate_audio_file(audio_file_path, model, device)
 
 if __name__ == "__main__":
     model_config = {
@@ -100,7 +97,7 @@ if __name__ == "__main__":
 
     # 模型和音频文件路径
     model_path = "./models/weights/AASIST-L.pth"  # 替换为模型路径
-    audio_file_path = "./test_audio/LA_E_2834763.flac"  # 替换为你的 .flac 文件路径
+    audio_file_path = "./test_audio/LA_E_4581379.flac"  # 替换为你的 .flac 文件路径
 
     # 调用主函数进行评估
     test(model_config, audio_file_path)

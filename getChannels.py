@@ -5,6 +5,6 @@ def get_channels(file_path):
         return file.channels
 
 # 示例
-file_path = "./test_audio/LA_E_4581379.flac"
+file_path = "./test_audio/merged_mono.flac"
 channels = get_channels(file_path)
 print(f"该文件有 {channels} 个声道")

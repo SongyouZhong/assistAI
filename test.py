@@ -97,7 +97,7 @@ if __name__ == "__main__":
 
     # 模型和音频文件路径
     model_path = "./models/weights/AASIST-L.pth"  # 替换为模型路径
-    audio_file_path = "./test_audio/LA_E_4581379.flac"  # 替换为你的 .flac 文件路径
+    audio_file_path = "./test_audio/merged_mono.flac"  # 替换为你的 .flac 文件路径
 
     # 调用主函数进行评估
     test(model_config, audio_file_path)

@@ -36,14 +36,14 @@ def evaluate_audio(model, audio,device):
     # probabilities = torch.softmax(output[1], dim=1)  # 对每个样本进行 softmax 转换
     # 或者：
     probabilities = torch.sigmoid(output[1])  # 如果是二分类，可以直接用 sigmoid
-    print("probabilities")
+    # print("probabilities")
     print(probabilities)
     # 判断类别为 'True'（真实音频）的概率是否大于 0.5
-    is_true_audio = probabilities[:, 1] >0.5  # probabilities[1] 是真实音频的概率
-    print("is_true_audio")
-    print(is_true_audio)
+    is_true_audio = probabilities[:, 1] >0.7  # probabilities[1] 是真实音频的概率
+    # print("is_true_audio")
+    # print(is_true_audio)
     result = is_true_audio.item() 
-    print(result)
+    # print(result)
 
     return result
 
@@ -80,7 +80,7 @@ def test(model_config: dict, audio_file_path: str):
     if not audio_file_path.exists():
         print(f"Audio file {audio_file_path} not found!")
         return
-
+    print(f"checking Audio file {audio_file_path} ")
     # 进行评估并保存结果
     evaluate_audio_file(audio_file_path, model, device)
 
@@ -97,7 +97,10 @@ if __name__ == "__main__":
 
     # 模型和音频文件路径
     model_path = "./models/weights/AASIST-L.pth"  # 替换为模型路径
-    audio_file_path = "./test_audio/merged_mono.flac"  # 替换为你的 .flac 文件路径
-
+    # audio_file_path = "./test_audio/LA_E_2834763.flac"  # 替换为你的 .flac 文件路径
+    test(model_config, "./test_audio/LA_E_3379393.flac")
+    audio_file_path = "./test_audio/channel_1.flac"  # 替换为你的 .flac 文件路径
     # 调用主函数进行评估
-    test(model_config, audio_file_path)
+    # test(model_config, "./test_audio/channel_0.flac")
+    # test(model_config, "./test_audio/channel_1.flac")
+    # test(model_config, "./test_audio/merged_mono.flac")

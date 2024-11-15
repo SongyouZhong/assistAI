@@ -9,6 +9,6 @@ def extract_audio(input_video_path, output_audio_path):
     audio.write_audiofile(output_audio_path, codec='flac')
 
 # 示例：提取 MP4 视频中的音频为 FLAC 格式
-input_video = "./final_output_copy.mp4"  # Windows 路径可以使用 /mnt/c/ 在 WSL 中
-output_audio = "./output.flac"
+input_video = "./testvideo.mp4"  # Windows 路径可以使用 /mnt/c/ 在 WSL 中
+output_audio = "./test_audio/output.flac"
 extract_audio(input_video, output_audio)
